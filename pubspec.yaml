@@ -3,6 +3,7 @@ description: A flutter plugin for persisting the theme data. Support for Dark Mo
 version: 1.5.0+1
 author: Rody Davis Jr <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
+maintainer: Rody Davis (@AppleEducate)
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
