@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:persist_theme/persist_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
