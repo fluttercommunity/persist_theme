@@ -5,7 +5,9 @@
 
 # persist_theme
 
-A Flutter plugin for persiting and dynamicly changing the theme.
+A Flutter plugin for persisting and dynamically changing the theme.
+
+Online Demo: https://fluttercommunity.github.io/persist_theme/
 
 ``` dart 
 import 'package:flutter/material.dart';
