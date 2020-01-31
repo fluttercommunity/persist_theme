@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 /// main is entry point of Flutter application
 void main() {
   // Desktop platforms aren't a valid platform.
-  _setTargetPlatformForDesktop();
+  if (!kIsWeb) _setTargetPlatformForDesktop();
 
   return runApp(MyApp());
 }
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableProvider<ThemeModel>(
-      builder: (_) => _model..init(),
+      create: (_) => _model..init(),
       child: Consumer<ThemeModel>(
         builder: (context, model, child) {
           return MaterialApp(

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.0
+
+* Bumping Version
+
 ## 1.5.1
 
 * Updating Provider

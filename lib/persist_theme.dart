@@ -46,7 +46,7 @@ class _PersistThemeState extends State<PersistTheme>
   @override
   Widget build(BuildContext context) {
     return ListenableProvider<ThemeModel>(
-      builder: (_) => _themeModel,
+      create: (_) => _themeModel,
       child: Consumer<ThemeModel>(
         builder: (context, model, child) => widget.builder(context, model),
       ),
