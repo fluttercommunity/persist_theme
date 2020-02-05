@@ -118,4 +118,4 @@ class HomeScreen extends StatelessWidget {
 
 ## Screenshots
 
-<img src="screenshots/1.png" width="19%"> <img src="screenshots/2.png" width="19%"> <img src="screenshots/3.png" width="19%"> <img src="screenshots/4.png" width="19%"> <img src="screenshots/5.png" width="19%">
+<img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/1.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/2.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/3.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/4.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/5.png" width="19%">
