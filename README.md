@@ -118,8 +118,4 @@ class HomeScreen extends StatelessWidget {
 
 ## Screenshots
 
-![](https://github.com/AppleEducate/plugins/blob/master/packages/persist_theme/screenshots/1.png)
-![](https://github.com/AppleEducate/plugins/blob/master/packages/persist_theme/screenshots/2.png)
-![](https://github.com/AppleEducate/plugins/blob/master/packages/persist_theme/screenshots/3.png)
-![](https://github.com/AppleEducate/plugins/blob/master/packages/persist_theme/screenshots/4.png)
-![](https://github.com/AppleEducate/plugins/blob/master/packages/persist_theme/screenshots/5.png)
+<img src="screenshots/1.png" width="19%"> <img src="screenshots/2.png" width="19%"> <img src="screenshots/3.png" width="19%"> <img src="screenshots/4.png" width="19%"> <img src="screenshots/5.png" width="19%">
