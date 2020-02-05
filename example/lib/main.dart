@@ -10,7 +10,6 @@ import 'package:flutter/foundation.dart';
 void main() {
   // Desktop platforms aren't a valid platform.
   if (!kIsWeb) _setTargetPlatformForDesktop();
-
   return runApp(MyApp());
 }
 
