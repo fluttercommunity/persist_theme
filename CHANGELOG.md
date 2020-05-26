@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.6.2
+
+* Updating plugin
+
 ## 1.6.1
 
 * Updating Example
