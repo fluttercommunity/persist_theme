@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableProvider<ThemeModel>(
-      builder: (_) => _model..init(),
+      create: (_) => _model..init(),
       child: Consumer<ThemeModel>(
         builder: (context, model, child) {
           return MaterialApp(
