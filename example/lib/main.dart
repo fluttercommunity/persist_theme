@@ -28,21 +28,18 @@ void _setTargetPlatformForDesktop() {
   }
 }
 
-final _model = ThemeModel();
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListenableProvider<ThemeModel>(
-      create: (_) => _model..init(),
-      child: Consumer<ThemeModel>(
-        builder: (context, model, child) {
-          return MaterialApp(
-            theme: model.theme,
-            home: HomeScreen(),
-          );
-        },
-      ),
+    return PersistTheme(
+      model: ThemeModel(),
+      builder: (context, model, child) {
+        return MaterialApp(
+          theme: model.theme,
+          home: child,
+        );
+      },
+      child: HomeScreen(),
     );
   }
 }
@@ -50,11 +47,9 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _theme = Provider.of<ThemeModel>(context);
+    final _theme = Provider.of<ThemeModel>(context, listen: true);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Persist Theme'),
-      ),
+      appBar: AppBar(title: const Text('Persist Theme')),
       body: ListView(
         children: MediaQuery.of(context).size.width >= 480
             ? <Widget>[

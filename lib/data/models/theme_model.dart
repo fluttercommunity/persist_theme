@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:localstorage/localstorage.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum ThemeType { light, dark, custom, black }
 
@@ -11,7 +10,9 @@ class ThemeModel extends ChangeNotifier {
     this.customDarkTheme,
     this.customCustomTheme,
     String key,
-  }) : _storage = LocalStorage(key ?? "app_theme");
+  }) {
+    init();
+  }
 
   final ThemeData customLightTheme,
       customDarkTheme,
@@ -23,7 +24,7 @@ class ThemeModel extends ChangeNotifier {
   int _darkAccentColor = Colors.greenAccent.value;
   bool _darkMode = false;
   int _primaryColor = Colors.blue.value;
-  LocalStorage _storage;
+  SharedPreferences _prefs;
   bool _trueBlack = false;
 
   ThemeType get type {
@@ -37,42 +38,42 @@ class ThemeModel extends ChangeNotifier {
 
   void changeDarkMode(bool value) {
     _darkMode = value;
-    _storage.setItem("dark_mode", _darkMode);
+    _prefs.setBool("dark_mode", _darkMode);
     notifyListeners();
   }
 
   void changeTrueBlack(bool value) {
     _trueBlack = value;
-    _storage.setItem("true_black", _trueBlack);
+    _prefs.setBool("true_black", _trueBlack);
     notifyListeners();
   }
 
   void changeCustomTheme(bool value) {
     _customTheme = value;
-    _storage.setItem("custom_theme", _customTheme);
+    _prefs.setBool("custom_theme", _customTheme);
     notifyListeners();
   }
 
   void changePrimaryColor(Color value) {
     _primaryColor = value.value;
-    _storage.setItem("primary_color", _primaryColor);
+    _prefs.setInt("primary_color", _primaryColor);
     notifyListeners();
   }
 
   void changeAccentColor(Color value) {
     _accentColor = value.value;
-    _storage.setItem("accent_color", _accentColor);
+    _prefs.setInt("accent_color", _accentColor);
     notifyListeners();
   }
 
   void changeDarkAccentColor(Color value) {
     _darkAccentColor = value.value;
-    _storage.setItem("dark_accent_color", _darkAccentColor);
+    _prefs.setInt("dark_accent_color", _darkAccentColor);
     notifyListeners();
   }
 
   ThemeData get theme {
-    if (_storage == null) {
+    if (_prefs == null) {
       init();
     }
     switch (type) {
@@ -115,7 +116,7 @@ class ThemeModel extends ChangeNotifier {
   }
 
   ThemeData get darkTheme {
-    if (_storage == null) {
+    if (_prefs == null) {
       init();
     }
 
@@ -157,13 +158,16 @@ class ThemeModel extends ChangeNotifier {
   }
 
   Future init() async {
-    if (await _storage.ready) {
-      _darkMode = _storage.getItem("dark_mode");
-      _trueBlack = _storage.getItem("true_black");
-      _customTheme = _storage.getItem("custom_theme");
-      _primaryColor = _storage.getItem("primary_color");
-      _accentColor = _storage.getItem("accent_color");
-      _darkAccentColor = _storage.getItem("dark_accent_color");
+    if (_prefs == null) {
+      _prefs = await SharedPreferences.getInstance();
+    }
+    if (_prefs != null) {
+      _darkMode = _prefs.getBool("dark_mode");
+      _trueBlack = _prefs.getBool("true_black");
+      _customTheme = _prefs.getBool("custom_theme");
+      _primaryColor = _prefs.getInt("primary_color");
+      _accentColor = _prefs.getInt("accent_color");
+      _darkAccentColor = _prefs.getInt("dark_accent_color");
       notifyListeners();
     } else {
       print("Error Loading Theme...");
@@ -211,7 +215,7 @@ class ThemeModel extends ChangeNotifier {
   }
 
   void reset() {
-    _storage.clear();
+    _prefs.clear();
     _darkMode = false;
     _trueBlack = false;
     _customTheme = false;
