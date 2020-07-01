@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
               ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: _theme.accentColor,
+        backgroundColor: _theme.theme.accentColor,
         child: Icon(Icons.add),
         onPressed: () {},
       ),
