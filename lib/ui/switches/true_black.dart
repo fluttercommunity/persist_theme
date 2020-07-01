@@ -5,13 +5,13 @@ import '../../persist_theme.dart';
 
 class TrueBlackSwitch extends StatelessWidget {
   const TrueBlackSwitch({
-    this.leading,
+    this.secondary,
     this.subtitle,
     this.title = const Text("True Black"),
     this.showOnlyDarkMode = true,
   });
 
-  final Widget leading, subtitle, title;
+  final Widget secondary, subtitle, title;
   final bool showOnlyDarkMode;
 
   @override
@@ -19,14 +19,12 @@ class TrueBlackSwitch extends StatelessWidget {
     return new Consumer<ThemeModel>(
         builder: (context, model, child) => Container(
               child: !showOnlyDarkMode || model.darkMode && showOnlyDarkMode
-                  ? ListTile(
-                      leading: leading,
+                  ? SwitchListTile.adaptive(
+                      secondary: secondary,
                       subtitle: subtitle,
                       title: title,
-                      trailing: Switch.adaptive(
-                        value: model.trueBlack,
-                        onChanged: model.changeTrueBlack,
-                      ),
+                      value: model.trueBlack,
+                      onChanged: model.changeTrueBlack,
                     )
                   : null,
             ));
