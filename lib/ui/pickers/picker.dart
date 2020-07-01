@@ -26,6 +26,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   @override
   Widget build(BuildContext context) {
     return MaterialColorPicker(
+      shrinkWrap: true,
       selectedColor: main,
       onMainColorChange: (ColorSwatch color) {
         if (mounted)
