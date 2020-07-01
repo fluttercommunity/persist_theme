@@ -5,25 +5,23 @@ import '../../persist_theme.dart';
 
 class DarkModeSwitch extends StatelessWidget {
   const DarkModeSwitch({
-    this.leading,
+    this.secondary,
     this.subtitle,
     this.title = const Text("Dark Mode"),
   });
 
-  final Widget leading, subtitle, title;
+  final Widget secondary, subtitle, title;
 
   @override
   Widget build(BuildContext context) {
     return new Consumer<ThemeModel>(
         builder: (context, model, child) => Container(
-              child: ListTile(
-                leading: leading,
+              child: SwitchListTile.adaptive(
+                secondary: secondary,
                 subtitle: subtitle,
                 title: title,
-                trailing: Switch.adaptive(
-                  value: model.darkMode,
-                  onChanged: model.changeDarkMode,
-                ),
+                value: model.darkMode,
+                onChanged: model.changeDarkMode,
               ),
             ));
   }
