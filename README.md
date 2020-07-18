@@ -14,50 +14,24 @@ Online Demo: https://fluttercommunity.github.io/persist_theme/
 import 'package:flutter/material.dart';
 
 import 'package:persist_theme/persist_theme.dart';
-import 'package:provider/provider.dart';
-import 'package:scoped_model/scoped_model.dart';
-
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart';
 
 /// main is entry point of Flutter application
 void main() {
-  // Desktop platforms aren't a valid platform.
-  _setTargetPlatformForDesktop();
-
   return runApp(MyApp());
 }
-
-/// If the current platform is desktop, override the default platform to
-/// a supported platform (iOS for macOS, Android for Linux and Windows).
-/// Otherwise, do nothing.
-void _setTargetPlatformForDesktop() {
-  TargetPlatform targetPlatform;
-  if (Platform.isMacOS) {
-    targetPlatform = TargetPlatform.iOS;
-  } else if (Platform.isLinux || Platform.isWindows) {
-    targetPlatform = TargetPlatform.android;
-  }
-  if (targetPlatform != null) {
-    debugDefaultTargetPlatformOverride = targetPlatform;
-  }
-}
-
-final _model = ThemeModel();
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListenableProvider<ThemeModel>(
-      create: (_) => _model..init(),
-      child: Consumer<ThemeModel>(
-        builder: (context, model, child) {
-          return MaterialApp(
-            theme: model.theme,
-            home: HomeScreen(),
-          );
-        },
-      ),
+    return PersistTheme(
+      model: ThemeModel(),
+      builder: (context, model, child) {
+        return MaterialApp(
+          theme: model.theme,
+          home: child,
+        );
+      },
+      child: HomeScreen(),
     );
   }
 }
@@ -65,11 +39,8 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _theme = Provider.of<ThemeModel>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Persist Theme'),
-      ),
+      appBar: AppBar(title: const Text('Persist Theme')),
       body: ListView(
         children: MediaQuery.of(context).size.width >= 480
             ? <Widget>[
@@ -100,7 +71,7 @@ class HomeScreen extends StatelessWidget {
               ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: _theme.accentColor,
+        backgroundColor: Theme.of(context).accentColor,
         child: Icon(Icons.add),
         onPressed: () {},
       ),
@@ -115,8 +86,9 @@ class HomeScreen extends StatelessWidget {
 
 * There are widgets provided but can be fully customized.
 * By default hide elements based on the theme.
-* The only requirement is that the material app is wrapped in a scoped model like shown above.
+* This package relies on [provider](https://pub.dev/packages/provider) internally, which you can ignore if you're only using this as shown above.
+  For advanced use, it is possible to obtain the [ThemeModel](https://pub.dev/documentation/persist_theme/latest/data_models_theme_model/ThemeModel-class.html), for example by using `context.read<ThemeModel>()` (You will have to import the provider library first. See https://pub.dev/packages/provider for additional information).
 
 ## Screenshots
 
-<img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/1.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/2.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/3.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/4.png" width="19%"> <img src="https://github.com/fluttercommunity/persist_theme/blob/master/screenshots/5.png" width="19%">
+<img src="https://raw.githubusercontent.com/fluttercommunity/persist_theme/master/screenshots/1.png" width="19%"> <img src="https://raw.githubusercontent.com/fluttercommunity/persist_theme/master/screenshots/2.png" width="19%"> <img src="https://raw.githubusercontent.com/fluttercommunity/persist_theme/master/screenshots/3.png" width="19%"> <img src="https://raw.githubusercontent.com/fluttercommunity/persist_theme/master/screenshots/4.png" width="19%"> <img src="https://raw.githubusercontent.com/fluttercommunity/persist_theme/master/screenshots/5.png" width="19%">
