@@ -16,8 +16,8 @@ class ThemeProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ThemeModel>(
-      create: (_) => model,
+    return ChangeNotifierProvider.value(
+      value: model,
       child: child,
     );
   }
