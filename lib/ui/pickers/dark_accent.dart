@@ -37,14 +37,14 @@ class DarkAccentColorPicker extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                                title: Text(label),
-                                content: SingleChildScrollView(
-                                  child: CustomColorPicker(
-                                    value: model.darkAccentColor,
-                                    onChanged: model.changeDarkAccentColor,
-                                  ),
-                                ),
+                            title: Text(label),
+                            content: SingleChildScrollView(
+                              child: CustomColorPicker(
+                                value: model.darkAccentColor,
+                                onChanged: model.changeDarkAccentColor,
                               ),
+                            ),
+                          ),
                         );
                       },
                     )
