@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum ThemeType { light, dark, custom, black }
+enum ThemeType { auto, light, dark, custom, black }
 
 class ThemeModel extends ChangeNotifier {
   ThemeModel({
@@ -14,11 +14,10 @@ class ThemeModel extends ChangeNotifier {
     init();
   }
 
-  final ThemeData customLightTheme,
-      customDarkTheme,
-      customBlackTheme,
-      customCustomTheme;
+  final ThemeData customLightTheme, customDarkTheme, customBlackTheme, customCustomTheme;
 
+  bool _autoMode = false;
+  bool _platformDark = false;
   int _accentColor = Colors.redAccent.value;
   bool _customTheme = false;
   int _darkAccentColor = Colors.greenAccent.value;
@@ -28,12 +27,26 @@ class ThemeModel extends ChangeNotifier {
   bool _trueBlack = false;
 
   ThemeType get type {
+    if (_autoMode ?? true) {
+      _darkMode = _platformDark;
+      if (_darkMode ?? false) {
+        if (_trueBlack ?? false) return ThemeType.black;
+        return ThemeType.dark;
+      }
+      return ThemeType.light;
+    }
     if (_darkMode ?? false) {
       if (_trueBlack ?? false) return ThemeType.black;
       return ThemeType.dark;
     }
     if (_customTheme ?? false) return ThemeType.custom;
     return ThemeType.light;
+  }
+
+  void changeAuto(bool value) {
+    _autoMode = value;
+    _prefs.setBool("auto_mode", _autoMode);
+    notifyListeners();
   }
 
   void changeDarkMode(bool value) {
@@ -109,10 +122,7 @@ class ThemeModel extends ChangeNotifier {
   }
 
   void checkPlatformBrightness(BuildContext context) {
-    if (!darkMode &&
-        MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      changeDarkMode(true);
-    }
+    _platformDark = (MediaQuery.of(context).platformBrightness == Brightness.dark);
   }
 
   ThemeData get darkTheme {
@@ -162,6 +172,7 @@ class ThemeModel extends ChangeNotifier {
       _prefs = await SharedPreferences.getInstance();
     }
     if (_prefs != null) {
+      _autoMode = _prefs.getBool("auto_mode");
       _darkMode = _prefs.getBool("dark_mode");
       _trueBlack = _prefs.getBool("true_black");
       _customTheme = _prefs.getBool("custom_theme");
@@ -174,8 +185,9 @@ class ThemeModel extends ChangeNotifier {
     }
   }
 
-  bool get darkMode =>
-      _darkMode ?? (type == ThemeType.dark || type == ThemeType.black);
+  bool get autoMode => _autoMode ?? true;
+
+  bool get darkMode => _darkMode ?? (type == ThemeType.dark || type == ThemeType.black);
 
   bool get trueBlack => _trueBlack ?? type == ThemeType.black;
 
@@ -183,9 +195,7 @@ class ThemeModel extends ChangeNotifier {
 
   Color get primaryColor {
     if (_primaryColor == null) {
-      return type == ThemeType.dark
-          ? ThemeData.dark().primaryColor
-          : ThemeData.light().primaryColor;
+      return type == ThemeType.dark ? ThemeData.dark().primaryColor : ThemeData.light().primaryColor;
     }
     return Color(_primaryColor);
   }
@@ -216,6 +226,7 @@ class ThemeModel extends ChangeNotifier {
 
   void reset() {
     _prefs.clear();
+    _autoMode = true;
     _darkMode = false;
     _trueBlack = false;
     _customTheme = false;

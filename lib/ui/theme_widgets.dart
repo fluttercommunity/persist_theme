@@ -5,3 +5,4 @@ export 'pickers/accent.dart';
 export 'switches/custom_theme.dart';
 export 'switches/dark_mode.dart';
 export 'switches/true_black.dart';
+export 'switches/auto_theme.dart';

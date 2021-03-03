@@ -16,15 +16,17 @@ class DarkModeSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Consumer<ThemeModel>(
         builder: (context, model, child) => Container(
-              child: ListTile(
-                leading: leading,
-                subtitle: subtitle,
-                title: title,
-                trailing: Switch.adaptive(
-                  value: model.darkMode,
-                  onChanged: model.changeDarkMode,
-                ),
-              ),
+              child: !model.autoMode
+                  ? ListTile(
+                      leading: leading,
+                      subtitle: subtitle,
+                      title: title,
+                      trailing: Switch.adaptive(
+                        value: model.darkMode,
+                        onChanged: model.changeDarkMode,
+                      ),
+                    )
+                  : null,
             ));
   }
 }

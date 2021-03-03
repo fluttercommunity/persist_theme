@@ -38,8 +38,8 @@ final _model = ThemeModel();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListenableProvider<ThemeModel>(
-      builder: (_) => _model..init(),
+    return ListenableProvider<ThemeModel>.value(
+      value: _model..init(),
       child: Consumer<ThemeModel>(
         builder: (context, model, child) {
           return MaterialApp(
