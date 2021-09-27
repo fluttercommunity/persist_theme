@@ -22,7 +22,7 @@
 
 ## 1.5.0 - [BREAKING CHANGE] - 05.24.2019
 
-* Fixing Color [Bug](https://github.com/AppleEducate/plugins/issues/50)
+* Fixing Color [Bug](https://github.com/rodydavis/plugins/issues/50)
 * Switched to Provider
 * Updated Example
 * Added check for platform brightness
